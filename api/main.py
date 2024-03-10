@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from fastapi import FastAPI, status
 
+from api.db import ChipEntry, getAllChips, addChip
+
+
+controllerName = "chips"
 app = FastAPI()
 
 
@@ -33,3 +37,24 @@ def get_health() -> HealthCheck:
         HealthCheck: Returns a JSON response with the health status
     """
     return HealthCheck(status="OK")
+
+
+@app.get(
+    f"/{controllerName}",
+    summary="Get all chips in db",
+    response_description="Returns a list of chips",
+    status_code=status.HTTP_200_OK,
+    response_model=list[ChipEntry],
+)
+def get_chips() -> list[ChipEntry]:
+    return getAllChips()
+
+
+@app.post(
+    f"/{controllerName}",
+    summary="Add a new chip",
+    response_description="Returns the added chip",
+    response_model=ChipEntry
+)
+def add_chip(newChip: ChipEntry) -> ChipEntry:
+    return addChip(newChip)
