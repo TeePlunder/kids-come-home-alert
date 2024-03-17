@@ -1,7 +1,8 @@
+from typing_extensions import List
 from pydantic import BaseModel
 from fastapi import FastAPI, status
 
-from api.db import ChipEntry, getAllChips, addChip
+from api.db import ChipEntry, getAllChips, addChip, removeChip
 
 controllerName = "chips"
 app = FastAPI()
@@ -49,3 +50,13 @@ def get_chips() -> list[ChipEntry]:
 )
 def add_chip(newChip: ChipEntry) -> ChipEntry:
     return addChip(newChip)
+
+
+@app.delete(
+    f"/{controllerName}/{{chipId}}",
+    summary="Remove a chip",
+    response_description="Returns the number of chips removed",
+    response_model=List[int],
+)
+def remove_chip(chipId: str) -> List[int]:
+    return removeChip(chipId)
