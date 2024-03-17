@@ -3,13 +3,13 @@ from fastapi import FastAPI, status
 
 from api.db import ChipEntry, getAllChips, addChip
 
-
 controllerName = "chips"
 app = FastAPI()
 
 
 class HealthCheck(BaseModel):
     """Response model to validate and return when performing a health check."""
+
     status: str = "OK"
 
 
@@ -27,15 +27,6 @@ def read_root():
     response_model=HealthCheck,
 )
 def get_health() -> HealthCheck:
-    """
-    ## Perform a Health Check
-    Endpoint to perform a healthcheck on. This endpoint can primarily be used Docker
-    to ensure a robust container orchestration and management is in place. Other
-    services which rely on proper functioning of the API service will not deploy if this
-    endpoint returns any other HTTP status code except 200 (OK).
-    Returns:
-        HealthCheck: Returns a JSON response with the health status
-    """
     return HealthCheck(status="OK")
 
 
@@ -54,7 +45,7 @@ def get_chips() -> list[ChipEntry]:
     f"/{controllerName}",
     summary="Add a new chip",
     response_description="Returns the added chip",
-    response_model=ChipEntry
+    response_model=ChipEntry,
 )
 def add_chip(newChip: ChipEntry) -> ChipEntry:
     return addChip(newChip)
