@@ -8,9 +8,13 @@ class ChipEntry(BaseModel):
     chipId: str
     phoneNumbers: list[str]
 
+    @classmethod
+    def from_document(cls, doc: dict) -> "ChipEntry":
+        return cls(chipId=doc["chipId"], phoneNumbers=doc["phoneNumbers"])
+
 
 def getAllChips() -> list[ChipEntry]:
-    return db.all()
+    return [ChipEntry.from_document(doc) for doc in db.all()]
 
 
 def addChip(newChip: ChipEntry) -> ChipEntry:
