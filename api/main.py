@@ -2,7 +2,8 @@ from typing_extensions import List
 from pydantic import BaseModel
 from fastapi import FastAPI, status
 
-from api.db import ChipEntry, getAllChips, addChip, removeChip
+from api.db import ChipEntry
+from api.handler import addChip, getAllChips, removeChip
 
 controllerName = "chips"
 app = FastAPI()
