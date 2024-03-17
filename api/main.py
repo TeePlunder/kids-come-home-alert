@@ -55,7 +55,7 @@ def add_chip(newChip: ChipEntry) -> ChipEntry:
 @app.delete(
     f"/{controllerName}/{{chipId}}",
     summary="Remove a chip",
-    response_description="Returns the number of chips removed",
+    response_description="Returns the index of the removed chips",
     response_model=List[int],
 )
 def remove_chip(chipId: str) -> List[int]:
