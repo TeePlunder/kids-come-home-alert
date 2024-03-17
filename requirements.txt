@@ -1,7 +1,4 @@
-RPi.GPIO==0.6.3
--e git+https://github.com/lthiery/SPI-Py.git#egg=spi-pi
+fastapi
 
-pip install fastapi
-
-pip install "uvicorn[standard]"
-pip install tinydb
+uvicorn[standard]
+tinydb
